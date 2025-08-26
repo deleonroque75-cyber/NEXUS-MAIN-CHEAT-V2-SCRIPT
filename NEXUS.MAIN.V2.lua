@@ -1,0 +1,216 @@
+-- NEXUS MAIN CHEAT V2 | FINAL LOCAL SCRIPT
+-- KEY: ACE-NEXUS-MAIN-V2
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- ===== KEY SYSTEM =====
+local KEY = "ACE-NEXUS-MAIN-V2"
+
+local function requestKey()
+    local ScreenGui = Instance.new("ScreenGui", playerGui)
+    ScreenGui.Name = "KeyPrompt"
+
+    local Frame = Instance.new("Frame", ScreenGui)
+    Frame.Size = UDim2.new(0,300,0,150)
+    Frame.Position = UDim2.new(0.5,-150,0.4,0)
+    Frame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+    Frame.Active = true
+    Frame.Draggable = true
+    Instance.new("UICorner", Frame).CornerRadius = UDim.new(0,12)
+
+    local TextLabel = Instance.new("TextLabel", Frame)
+    TextLabel.Size = UDim2.new(1,0,0.3,0)
+    TextLabel.Position = UDim2.new(0,0,0,10)
+    TextLabel.Text = "ENTER KEY"
+    TextLabel.TextScaled = true
+    TextLabel.TextColor3 = Color3.fromRGB(0,255,0)
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Font = Enum.Font.FredokaOne
+
+    local TextBox = Instance.new("TextBox", Frame)
+    TextBox.Size = UDim2.new(0.8,0,0.2,0)
+    TextBox.Position = UDim2.new(0.1,0,0.4,0)
+    TextBox.ClearTextOnFocus = false
+    TextBox.PlaceholderText = "Type key here..."
+    TextBox.TextColor3 = Color3.fromRGB(255,255,255)
+    TextBox.BackgroundColor3 = Color3.fromRGB(30,30,30)
+    Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0,8)
+    TextBox.Font = Enum.Font.Gotham
+
+    local Submit = Instance.new("TextButton", Frame)
+    Submit.Size = UDim2.new(0.5,0,0.2,0)
+    Submit.Position = UDim2.new(0.25,0,0.7,0)
+    Submit.Text = "SUBMIT"
+    Submit.Font = Enum.Font.GothamBold
+    Submit.TextColor3 = Color3.fromRGB(30,30,30)
+    Submit.BackgroundColor3 = Color3.fromRGB(0,255,0)
+    Instance.new("UICorner", Submit).CornerRadius = UDim.new(0,8)
+
+    local success = false
+    Submit.MouseButton1Click:Connect(function()
+        if TextBox.Text == KEY then
+            success = true
+            ScreenGui:Destroy()
+        else
+            TextLabel.Text = "WRONG KEY! LUHOD KAY ACE!"
+            TextLabel.TextColor3 = Color3.fromRGB(255,0,0)
+        end
+    end)
+
+    repeat wait() until success
+end
+
+requestKey()
+
+-- ===== MAIN GUI =====
+local oldGui = playerGui:FindFirstChild("NEXUS_MAIN_CHEAT_V2")
+if oldGui then oldGui:Destroy() end
+
+local NexusGui = Instance.new("ScreenGui", playerGui)
+NexusGui.Name = "NEXUS_MAIN_CHEAT_V2"
+
+local MainFrame = Instance.new("Frame", NexusGui)
+MainFrame.Size = UDim2.new(0,400,0,360)
+MainFrame.Position = UDim2.new(0.3,0,0.2,0)
+MainFrame.BackgroundColor3 = Color3.fromRGB(245,245,245)
+MainFrame.Active = true
+MainFrame.Draggable = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0,14)
+
+-- Title
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1,0,0.15,0)
+Title.Position = UDim2.new(0,0,0,10)
+Title.Text = "NEXUS MAIN CHEAT V2"
+Title.TextScaled = true
+Title.TextColor3 = Color3.fromRGB(0,200,0)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.FredokaOne
+
+-- Subtitle
+local Subtitle = Instance.new("TextLabel", MainFrame)
+Subtitle.Size = UDim2.new(1,0,0.08,0)
+Subtitle.Position = UDim2.new(0,0,0.15,0)
+Subtitle.Text = "MAIN CHEAT"
+Subtitle.TextScaled = true
+Subtitle.TextColor3 = Color3.fromRGB(50,50,50)
+Subtitle.BackgroundTransparency = 1
+Subtitle.Font = Enum.Font.GothamBold
+
+-- Animate Title
+spawn(function()
+    local TweenService = game:GetService("TweenService")
+    while Title.Parent do
+        local t1 = TweenService:Create(Title,TweenInfo.new(0.8,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),{TextSize = 26})
+        local t2 = TweenService:Create(Title,TweenInfo.new(0.8,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),{TextSize = 24})
+        t1:Play() t1.Completed:Wait()
+        t2:Play() t2.Completed:Wait()
+        wait(0.3)
+    end
+end)
+
+-- Tabs
+local tabHolder = Instance.new("Frame", MainFrame)
+tabHolder.Size = UDim2.new(1,-20,0,44)
+tabHolder.Position = UDim2.new(0,10,0,80)
+tabHolder.BackgroundTransparency = 1
+local tabLayout = Instance.new("UIListLayout", tabHolder)
+tabLayout.FillDirection = Enum.FillDirection.Horizontal
+tabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+tabLayout.Padding = UDim.new(0,8)
+
+local content = Instance.new("Frame", MainFrame)
+content.Size = UDim2.new(1,-20,1,-150)
+content.Position = UDim2.new(0,10,0,140)
+content.BackgroundTransparency = 1
+
+local pages = {}
+local function createTab(text,key)
+    local btn = Instance.new("TextButton", tabHolder)
+    btn.Size = UDim2.new(0,128,1,0)
+    btn.Text = text
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 13
+    btn.TextColor3 = Color3.fromRGB(35,35,35)
+    btn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+    btn.AutoButtonColor = true
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0,8)
+    local stroke = Instance.new("UIStroke", btn)
+    stroke.Color = Color3.fromRGB(200,200,200)
+    stroke.Thickness = 1.4
+
+    local page = Instance.new("ScrollingFrame", content)
+    page.Size = UDim2.new(1,0,1,0)
+    page.CanvasSize = UDim2.new(0,0,1,0)
+    page.ScrollBarThickness = 6
+    page.BackgroundTransparency = 1
+    page.Visible = false
+    local layout = Instance.new("UIListLayout", page)
+    layout.Padding = UDim.new(0,10)
+    layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    layout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+    pages[key] = page
+
+    btn.MouseButton1Click:Connect(function()
+        for k,v in pairs(pages) do v.Visible = false end
+        page.Visible = true
+    end)
+    return page
+end
+
+local page1 = createTab("Roleplay Destroyed","rp")
+local page2 = createTab("🔫 Dupe & 💰","dupe")
+local page3 = createTab("👾 Misc 👾","misc")
+pages["rp"].Visible = true
+
+-- Helper to create buttons
+local function makeButton(page,text,func)
+    local btn = Instance.new("TextButton",page)
+    btn.Size = UDim2.new(0.94,0,0,52)
+    btn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+    btn.Text = text
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 17
+    btn.TextColor3 = Color3.fromRGB(30,30,30)
+    btn.AutoButtonColor = true
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0,10)
+    local stroke = Instance.new("UIStroke", btn)
+    stroke.Color = Color3.fromRGB(200,200,200)
+    stroke.Thickness = 1.6
+
+    btn.MouseButton1Click:Connect(function()
+        pcall(func)
+    end)
+    return btn
+end
+
+-- TAB 1: Roleplay Destroyed
+makeButton(page1,"WICKED SCRIPT",function() warn("WICKED SCRIPT executed") end)
+makeButton(page1,"INFINITE YIELD",function() warn("INFINITE YIELD executed") end)
+makeButton(page1,"MUSIC EXPLOIT",function() warn("Music exploit") end)
+makeButton(page1,"BIG HEAD HITBOX",function() warn("Big Head Hitbox") end)
+makeButton(page1,"LOOPBRING ALL",function() warn("Loopbring all") end)
+makeButton(page1,"RESET POSITION",function()
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(0,10,0))
+    end
+end)
+makeButton(page1,"ADMIN COMMANDS",function() warn("Admin commands") end)
+
+-- TAB 2: Dupe & 💰
+makeButton(page2,"AUTO BUY GUN",function() warn("Auto buy") end)
+local guns = {"Silenced Pistol","HK416","Glock 17","Glock 19","Medkit","Desert Eagle"}
+for _,g in pairs(guns) do
+    makeButton(page2,"SPAWN "..g,function() warn("Spawn "..g) end)
+end
+
+-- TAB 3: Misc
+makeButton(page3,"SPAMMING GUN GUI",function() warn("Spamming Gun GUI") end)
+makeButton(page3,"AUTO BUY ALL",function() warn("Auto buy all") end)
+makeButton(page3,"EQUIP ALL ITEMS",function() warn("Equip all") end)
+makeButton(page3,"DROP TOOLS",function() warn("Drop tools") end)
+makeButton(page3,"SYSTEM COOL",function() warn("System cool") end)
+
+print("NEXUS MAIN CHEAT V2 FINAL LOCAL SCRIPT LOADED")
